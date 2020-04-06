@@ -1,18 +1,27 @@
 /*
  * string_parser.c
  *
- *  Created on: 6 באפר׳ 2020
+ *  Created on: 6 2020
  *      Author: pinchuk
  */
 
-
 #include "string_parser.h"
 
+/**
+ * @brief  return sub string  by following restrict
+ * 			1)no cutting  words  from string  TBD  exact definition
+ * 			2)sub string  no more then k
+ * 			3)sus bstring  not include  space in the end
+ * @param  char pointer ( user string)
+ * @param  len substring
 
+ * @retval substring
+ */
 
 char * unique_substring(char * string, int len_substring)
 {
     char empty_string_restrict_rule[]="the substring is empty\r\n";
+    char empty_string_restrict_rule1[]="substring len request bigger then origin string\r\n";
     char * result_substring_apply_restrict;
     char * substring;
     substring=string;  // new substring is point  to original string
@@ -24,6 +33,12 @@ char * unique_substring(char * string, int len_substring)
     position_words_instring words_range_instring[6];
     update_words_ranges(words_range_instring,space_position_instring);
     int limup=0, limsup=0;
+
+    if (len_substring>str_len(string))
+    {
+    	 memcpy(result_substring_apply_restrict,empty_string_restrict_rule,str_len(empty_string_restrict_rule));
+    }
+
 
     for (int cnt_check_ranges_for_lensubstring=0;cnt_check_ranges_for_lensubstring<n_space_instring;cnt_check_ranges_for_lensubstring++)
    {
@@ -46,7 +61,11 @@ char * unique_substring(char * string, int len_substring)
     return result_substring_apply_restrict;
 }
 
-
+/**
+ * @brief  print_character_string
+ * @param  char pointer ( user string)
+ * @retval substring
+ */
 void print_character_string(char *string)
 {
 	int place=0;
@@ -57,6 +76,12 @@ void print_character_string(char *string)
         string++;
     }
 }
+
+/**
+ * @brief  str_len
+ * @param  char pointer ( user string)
+ * @retval len string
+ */
 
 int str_len(char *string)
 {
@@ -76,7 +101,12 @@ int str_len(char *string)
     return len_str;
 }
 
-
+/**
+ * @brief  update_words_ranges
+ * @param  char pointer position_words_instring  limits  of words inside string
+ * @param  pos_space_instring
+ * @retval void
+ */
 
 void update_words_ranges(position_words_instring *data,uint8_t *pos_space_instring)
 {
@@ -94,6 +124,14 @@ void update_words_ranges(position_words_instring *data,uint8_t *pos_space_instri
  #endif
      }
 }
+
+
+/**
+ * @brief  storage_address_pointers_pointto_space  save position space position in string
+ * @param  char pointer string
+ * @param  buffer which update space address_pointers
+ * @retval void
+ */
 
 uint8_t storage_address_pointers_pointto_space(char * string, uint8_t *address_pointers)
 {
